@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LIFE ADMIN AI — Design System
+   Theme: Dark Editorial / "The Precision Bureau"
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* === COLOR SYSTEM === */
+    /* Base backgrounds */
+    --color-base:      #0a0b0f;   /* App background */
+    --color-surface:   #0f1117;   /* Sidebar, modals */
+    --color-elevated:  #13161e;   /* Cards */
+    --color-overlay:   #1a1e2a;   /* Hover states */
+    --color-border:    #1e2330;   /* Borders */
+    --color-border-strong: #2a3040;
+
+    /* Typography */
+    --color-primary:   #f0f2f7;   /* Main text */
+    --color-secondary: #8b95a8;   /* Muted text */
+    --color-muted:     #4b5a6e;   /* Very muted */
+    --color-inverse:   #0a0b0f;   /* Text on amber */
+
+    /* Accent — Amber/Gold (authority + warmth) */
+    --color-amber:       #e8a020;
+    --color-amber-hover: #f5b030;
+    --color-amber-dim:   rgba(232, 160, 32, 0.12);
+    --color-amber-glow:  rgba(232, 160, 32, 0.25);
+
+    /* Semantic */
+    --color-info:        #3b82f6;
+    --color-info-dim:    rgba(59, 130, 246, 0.12);
+    --color-success:     #10b981;
+    --color-success-dim: rgba(16, 185, 129, 0.12);
+    --color-warning:     #f59e0b;
+    --color-warning-dim: rgba(245, 158, 11, 0.12);
+    --color-danger:      #ef4444;
+    --color-danger-dim:  rgba(239, 68, 68, 0.12);
+    --color-purple:      #a855f7;
+    --color-purple-dim:  rgba(168, 85, 247, 0.12);
+    --color-teal:        #14b8a6;
+    --color-teal-dim:    rgba(20, 184, 166, 0.12);
+
+    /* Priority colors */
+    --color-urgent:   var(--color-danger);
+    --color-high:     var(--color-warning);
+    --color-medium:   var(--color-info);
+    --color-low:      var(--color-muted);
+
+    /* Typography */
+    --font-display: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body:    var(--font-outfit), 'Outfit', system-ui, sans-serif;
+    --font-brand:   var(--font-fraunces), 'Fraunces', Georgia, serif;
+    --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Spacing */
+    --sidebar-width: 240px;
+    --topbar-height: 60px;
+
+    /* Radius */
+    --radius-sm:  6px;
+    --radius-md:  10px;
+    --radius-lg:  14px;
+    --radius-xl:  20px;
+
+    /* Shadows */
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2);
+    --shadow-modal: 0 8px 40px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04) inset;
+    --shadow-amber: 0 0 20px rgba(232, 160, 32, 0.3);
+  }
+
+  /* === GLOBALS === */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-base);
+    color: var(--color-primary);
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--color-amber-dim);
+    color: var(--color-amber-hover);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+  /* Focus */
+  :focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+}
+
+/* ============================================================
+   TAILWIND UTILITIES — Custom classes
+   ============================================================ */
+
+@layer utilities {
+  /* Colors as utilities */
+  .bg-base      { background-color: var(--color-base); }
+  .bg-surface   { background-color: var(--color-surface); }
+  .bg-elevated  { background-color: var(--color-elevated); }
+  .bg-overlay   { background-color: var(--color-overlay); }
+  .bg-amber-dim { background-color: var(--color-amber-dim); }
+
+  .border-border       { border-color: var(--color-border); }
+  .border-border-strong { border-color: var(--color-border-strong); }
+
+  .text-primary   { color: var(--color-primary); }
+  .text-secondary { color: var(--color-secondary); }
+  .text-muted     { color: var(--color-muted); }
+  .text-amber     { color: var(--color-amber); }
+  .text-inverse   { color: var(--color-inverse); }
+
+  .font-display { font-family: var(--font-display); }
+  .font-brand   { font-family: var(--font-brand); }
+  .font-body    { font-family: var(--font-body); }
+  .font-mono    { font-family: var(--font-mono); }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0.4;
+  }
+
+  /* Scanline effect */
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Gradient text */
+  .text-gradient-amber {
+    background: linear-gradient(135deg, var(--color-amber), var(--color-amber-hover));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Card with ambient glow */
+  .card {
+    background: var(--color-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    border-color: var(--color-border-strong);
+  }
+  .card-amber {
+    border-color: var(--color-amber-dim);
+    box-shadow: var(--shadow-card), 0 0 30px rgba(232,160,32,0.06);
+  }
+
+  /* Priority bar left border */
+  .priority-urgent { border-left: 3px solid var(--color-danger) !important; }
+  .priority-high   { border-left: 3px solid var(--color-warning) !important; }
+  .priority-medium { border-left: 3px solid var(--color-info) !important; }
+  .priority-low    { border-left: 3px solid var(--color-muted) !important; }
+
+  /* Amber button */
+  .btn-amber {
+    background: var(--color-amber);
+    color: var(--color-inverse);
+    font-family: var(--font-display);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1.25rem;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-amber:hover {
+    background: var(--color-amber-hover);
+    box-shadow: var(--shadow-amber);
+    transform: translateY(-1px);
+  }
+  .btn-amber:active { transform: translateY(0); }
+
+  /* Ghost button */
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-secondary);
+    border: 1px solid var(--color-border-strong);
+    font-family: var(--font-body);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1.25rem;
+    transition: all 0.15s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-ghost:hover {
+    background: var(--color-overlay);
+    color: var(--color-primary);
+    border-color: var(--color-border-strong);
+  }
+
+  /* Badge */
+  .badge {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Input */
+  .input {
+    width: 100%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 0.6rem 1rem;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+  }
+  .input::placeholder { color: var(--color-muted); }
+  .input:focus {
+    border-color: var(--color-amber);
+    box-shadow: 0 0 0 3px var(--color-amber-dim);
+  }
+
+  /* Subtle divider */
+  .divider {
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  /* Watermark number in stat cards */
+  .stat-watermark {
+    position: absolute;
+    right: -8px;
+    bottom: -16px;
+    font-family: var(--font-display);
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0.04;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse-amber {
+    0%, 100% { box-shadow: 0 0 0 0 var(--color-amber-glow); }
+    50%       { box-shadow: 0 0 0 6px transparent; }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% center; }
+    to   { background-position: 200% center; }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s ease both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease both;
+  }
+
+  /* Stagger helpers */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Skeleton loading */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-elevated) 25%,
+      var(--color-overlay) 50%,
+      var(--color-elevated) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+  }
+}
